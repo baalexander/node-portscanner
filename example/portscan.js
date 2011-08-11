@@ -1,6 +1,6 @@
 var portscanner = require('../lib/portscanner.js')
 
-portscanner.checkPortStatus('3000', 'localhost', function(error, status) {
+portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
   console.log(status)
 })
 
