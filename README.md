@@ -1,7 +1,7 @@
 
 ## The What
 
-The portscanner module is a pure JavaScript port scanner for node.js.
+The portscanner module is an asynchronous JavaScript port scanner for Node.js.
 
 Portscanner can check a port, or range of ports, for 'open' or 'closed'
 statuses.
@@ -10,8 +10,9 @@ statuses.
 
 ### To Install
 
-NPM package coming soon. Needs more testing and features first. For now, require
-the lib/portscanner.js file.
+```bash
+npm install portscanner
+```
 
 ### To Use
 
@@ -39,12 +40,17 @@ portscanner.findAClosedPort(3000, 3010, 'localhost', function(error, port) {
 })
 ```
 
-Also check the example directory for more examples.
+The example directory contains a more detailed example.
 
 ### To Test
 
 Bleh. I am a fan of testing, but currently looking into an easier way to test
 HTTP connections. If any ideas, please message me.
+
+## The Future
+
+Please create issues, or better yet, pull requests, for port scanning related
+features you'd like to see included.
 
 ## The License (MIT)
 
