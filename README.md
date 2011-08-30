@@ -10,11 +10,7 @@ statuses.
 
 ### To Install
 
-While ready to be uploaded to NPM, I have one more round of investigation before
-taking the plunge.
-
 ```bash
-# Coming soon!
 npm install portscanner
 ```
 
