@@ -31,16 +31,16 @@ portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
   console.log(status)
 })
 
-// Find the first port in use or blocked. Asynchronously checks, so first port
-// to respond is returned.
-portscanner.findAnOpenPort(3000, 3010, 'localhost', function(error, port) {
-  console.log('OPEN PORT AT ' + port)
-})
-
 // Find the first available port. Asynchronously checks, so first port
 // determined as available is returned.
-portscanner.findAClosedPort(3000, 3010, 'localhost', function(error, port) {
-  console.log('CLOSED PORT AT ' + port)
+portscanner.findAPortNotInUse(3000, 3010, 'localhost', function(error, port) {
+  console.log('AVAILABLE PORT AT: ' + port)
+})
+
+// Find the first port in use or blocked. Asynchronously checks, so first port
+// to respond is returned.
+portscanner.findAPortInUse(3000, 3010, 'localhost', function(error, port) {
+  console.log('PORT IN USE AT: ' + port)
 })
 ```
 
@@ -49,7 +49,7 @@ The example directory contains a more detailed example.
 ### To Test
 
 Bleh. I am a fan of testing, but currently looking into an easier way to test
-HTTP connections. If any ideas, please message me.
+several HTTP connections. If any ideas, please message me.
 
 ## The Future
 

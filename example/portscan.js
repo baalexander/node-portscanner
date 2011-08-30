@@ -22,13 +22,13 @@ setTimeout(function() {
   })
 
   // Finds a port that a service is listening on
-  portscanner.findAnOpenPort(3000, 3010, 'localhost', function(error, port) {
+  portscanner.findAPortInUse(3000, 3010, 'localhost', function(error, port) {
     // Port should be 3005 as the HTTP server is listening on that port
     console.log('Found an open port at ' + port)
   })
 
-  // Finds a port that is not currently in use
-  portscanner.findAClosedPort(3000, 3010, 'localhost', function(error, port) {
+  // Finds a port no service is listening on
+  portscanner.findAPortNotInUse(3000, 3010, 'localhost', function(error, port) {
     // Will return any number between 3000 and 3010 (inclusive), that's not 3005.
     // The order is unknown as the port status checks are asynchronous.
     console.log('Found a closed port at ' + port)
