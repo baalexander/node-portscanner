@@ -12,7 +12,7 @@
 , "bugs" : { "web" : "https://github.com/baalexander/node-portscanner/issues" }
 , "directories" : { "lib" : "./lib" }
 , "main" : "./lib/portscanner.js"
-, "dependencies" : { }
+, "dependencies" : { "async" : "0.1.15" }
 , "devDependencies" : { }
 , "engines" : { "node" : ">=0.4", "npm" : ">=1.0.0" }
 , "licenses" :
