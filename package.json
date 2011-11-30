@@ -1,7 +1,7 @@
 { "name" : "portscanner"
 , "description" : "Asynchronous port scanner for Node.js"
 , "keywords" : [ "portscanner", "port", "scanner", "checker", "status" ]
-, "version" : "0.1.1"
+, "version" : "0.1.2"
 , "preferGlobal" : false
 , "homepage" : "https://github.com/baalexander/node-portscanner"
 , "author" : "Brandon Alexander <baalexander@gmail.com> (https://github.com/baalexander)"
