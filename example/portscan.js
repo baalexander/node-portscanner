@@ -5,10 +5,7 @@ var http        = require('http')
 var server = http.createServer(function (request, response) {
 
 })
-server.listen(3005, 'localhost')
-
-// Waits briefly before port scanning to let the HTTP server start listening
-setTimeout(function() {
+server.listen(3005, 'localhost', function() {
 
   // Checks the status of an individual port.
   portscanner.checkPortStatus(3005, 'localhost', function(error, status) {
@@ -34,5 +31,5 @@ setTimeout(function() {
     console.log('Found a closed port at ' + port)
   })
 
-}, 500)
+})
 
