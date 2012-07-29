@@ -27,6 +27,13 @@ portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
   console.log(status)
 })
 
+// Checks the status of a all ports in a range
+portscanner.checkPortStatuses(3000, 4000, 'localhost', function(error, statuses) {
+  // Statuses is an array of status objects, 
+  // in the format of {port: port, status: status}
+  console.log(statuses)
+})
+
 // Find the first available port. Asynchronously checks, so first port
 // determined as available is returned.
 portscanner.findAPortNotInUse(3000, 3010, 'localhost', function(error, port) {
