@@ -1,24 +1,37 @@
 var http        = require('http')
-  , portscanner = require('../lib/portscanner.js')
+  , ps = require('../lib/portscanner.js')
 
 // Sets up an HTTP server listening on port 3005
 var server = http.createServer(function (request, response) {
 
 })
 server.listen(3005, 'localhost', function() {
-
-  // Checks the status of an individual port.
-  portscanner.checkPortStatus(3005, 'localhost', function(error, status) {
-    // Status should be 'open' since the HTTP server is listening on that port
-    console.log('Status at port 3005 is ' + status)
-  })
-
-  portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
-    // Status should be 'closed' since no service is listening on that port.
-    console.log('Status at port 3000 is ' + status)
-  })
-
-  // Finds a port that a service is listening on
+  var portscanner = new ps();
+  
+  // will trigger on every open, i.e. also for scan and findAPortInUse
+  portscanner.on('open', function(s) {
+    console.log('event open ' + s);
+  });
+  
+  portscanner.on('done', function() {
+    console.log('event done');
+  });
+  
+  portscanner.scan('localhost', 3000, 3010, function(error, port) {
+    if (!error) {      
+      console.log('open ' + port);
+    }
+  });
+  
+  portscanner.on('firstopen', function(port) {
+    console.log('event firstopen '+ port);
+  });
+  
+  portscanner.on('firstclosed', function(port) {
+    console.log('event firstclosed ' + port);
+  });
+  
+    // Finds a port that a service is listening on
   portscanner.findAPortInUse(3000, 3010, 'localhost', function(error, port) {
     // Port should be 3005 as the HTTP server is listening on that port
     console.log('Found an open port at ' + port)
