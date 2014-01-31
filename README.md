@@ -32,6 +32,24 @@ ps.scan('192.168.2.35', 1, 1000, function (openPorts) {
 });
 ```
 
+#### Events
+method: checkPortStatus
+events:
+*error
+*open
+*closed
+*portChecked
+
+method: scan
+events:
+*All events from checkPortStatus
+*scancomplete
+
+method: findAPortWithStatus
+events:
+*firstopen
+*firstclosed
+
 The example directory contains more detailed examples.
 
 ### To Test
