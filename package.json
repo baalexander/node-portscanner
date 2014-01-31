@@ -15,7 +15,7 @@
 , "bugs" : { "url" : "https://github.com/baalexander/node-portscanner/issues" }
 , "directories" : { "lib" : "./lib" }
 , "main" : "./lib/portscanner.js"
-, "dependencies" : { "async" : "0.1.15" }
+, "dependencies" : {}
 , "devDependencies" : { }
 , "engines" : { "node" : ">=0.4", "npm" : ">=1.0.0" }
 , "licenses" :

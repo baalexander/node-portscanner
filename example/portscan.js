@@ -1,35 +1,31 @@
 var http        = require('http')
-  , portscanner = require('../lib/portscanner.js')
+  , Portscanner = require('../lib/portscanner');
 
 // Sets up an HTTP server listening on port 3005
 var server = http.createServer(function (request, response) {
 
-})
+});
+
 server.listen(3005, 'localhost', function() {
+  var ps = new Portscanner();
 
-  // Checks the status of an individual port.
-  portscanner.checkPortStatus(3005, 'localhost', function(error, status) {
-    // Status should be 'open' since the HTTP server is listening on that port
-    console.log('Status at port 3005 is ' + status)
-  })
+  // will trigger on every open, i.e. also for scan and findAPortInUse
+  ps.on('open', function(s) {
+    console.log('event open ' + s);
+  });
 
-  portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
-    // Status should be 'closed' since no service is listening on that port.
-    console.log('Status at port 3000 is ' + status)
-  })
+  ps.on('scancomplete', function(ports) {
+    console.log('event done', ports);
+  });
 
-  // Finds a port that a service is listening on
-  portscanner.findAPortInUse(3000, 3010, 'localhost', function(error, port) {
-    // Port should be 3005 as the HTTP server is listening on that port
-    console.log('Found an open port at ' + port)
-  })
+  ps.on('error', function(data) {
+    console.log('error ' + data);
+  });
 
-  // Finds a port no service is listening on
-  portscanner.findAPortNotInUse(3000, 3010, 'localhost', function(error, port) {
-    // Will return any number between 3000 and 3010 (inclusive), that's not 3005.
-    // The order is unknown as the port status checks are asynchronous.
-    console.log('Found a closed port at ' + port)
-  })
-
-})
+  ps.scan('192.168.2.35', 1, 1000, function(error, port) {
+    if (!error) {
+      console.log('open ' + port);
+    }
+  });
+});
 

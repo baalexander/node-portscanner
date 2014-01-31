@@ -1,46 +1,56 @@
 
 ## The What
 
+Fork of https://github.com/baalexander/node-portscanner with actual port scan (like very(!) simple nmap) and event emitter.
+
 The portscanner module is an asynchronous JavaScript port scanner for Node.js.
 
-Portscanner can check a port, or range of ports, for 'open' or 'closed'
-statuses.
+You may consume events as they are emitted or just use the callbacks.
 
 ## The How
-
-### To Install
-
-```bash
-npm install portscanner
-```
 
 ### To Use
 
 A brief example:
 
 ```javascript
-var portscanner = require('portscanner')
+// event emitting example
+var Portscanner = require('./portscanner');
+var ps = new Portscanner();
 
-// Checks the status of a single port
-portscanner.checkPortStatus(3000, 'localhost', function(error, status) {
-  // Status is 'open' if currently in use or 'closed' if available
-  console.log(status)
-})
+ps.on('scancomplete', function (ports) {
+  console.log(ports);
+});
+ps.scan('192.168.2.35', 20, 100);
 
-// Find the first available port. Asynchronously checks, so first port
-// determined as available is returned.
-portscanner.findAPortNotInUse(3000, 3010, 'localhost', function(error, port) {
-  console.log('AVAILABLE PORT AT: ' + port)
-})
+// callback example
+var Portscanner = require('./portscanner');
+var ps = new Portscanner();
 
-// Find the first port in use or blocked. Asynchronously checks, so first port
-// to respond is returned.
-portscanner.findAPortInUse(3000, 3010, 'localhost', function(error, port) {
-  console.log('PORT IN USE AT: ' + port)
-})
+ps.scan('192.168.2.35', 1, 1000, function (openPorts) {
+  console.log(openPorts);
+});
 ```
+The example directory contains more detailed examples.
 
-The example directory contains a more detailed example.
+#### Events
+method: checkPortStatus
+events:
+* error
+* open
+* closed
+* portChecked
+
+method: scan
+events:
+* All events from checkPortStatus
+* scancomplete
+
+method: findAPortWithStatus
+events:
+* All events from scan
+* firstopen
+* firstclosed
 
 ### To Test
 
