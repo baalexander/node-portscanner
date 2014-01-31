@@ -48,6 +48,7 @@ events:
 
 method: findAPortWithStatus
 events:
+* All events from scan
 * firstopen
 * firstclosed
 
