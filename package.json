@@ -8,7 +8,7 @@
     "checker",
     "status"
   ],
-  "version": "0.2.2",
+  "version": "0.2.3",
   "preferGlobal": false,
   "homepage": "https://github.com/baalexander/node-portscanner",
   "author": [
