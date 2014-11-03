@@ -7,6 +7,8 @@ Portscanner can check a port,
 or range of ports,
 for 'open' or 'closed' statuses.
 
+[Looking for maintainer](https://github.com/baalexander/node-portscanner/issues/25)!
+
 ## Install
 
 ```bash
