@@ -39,6 +39,11 @@ portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', function(error, port) {
 portscanner.findAPortInUse(3000, 3010, '127.0.0.1', function(error, port) {
   console.log('PORT IN USE AT: ' + port)
 })
+
+// You can also pass array of ports to check
+portscanner.findAPortInUse([3000, 3005, 3006], '127.0.0.1', function(error, port) {
+  console.log('PORT IN USE AT: ' + port)
+})
 ```
 
 The example directory contains a more detailed example.
