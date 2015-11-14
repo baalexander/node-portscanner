@@ -3,9 +3,7 @@
 The portscanner module is
 an asynchronous JavaScript port scanner for Node.js.
 
-Portscanner can check a port,
-or range of ports,
-for 'open' or 'closed' statuses.
+Portscanner can check a port, range of ports, or array of ports for 'open' or 'closed' statuses.
 
 [Looking for maintainer](https://github.com/baalexander/node-portscanner/issues/25)!
 
@@ -39,15 +37,18 @@ portscanner.findAPortNotInUse(3000, 3010, '127.0.0.1', function(error, port) {
 portscanner.findAPortInUse(3000, 3010, '127.0.0.1', function(error, port) {
   console.log('PORT IN USE AT: ' + port)
 })
+
+// You can also pass array of ports to check
+portscanner.findAPortInUse([3000, 3005, 3006], '127.0.0.1', function(error, port) {
+  console.log('PORT IN USE AT: ' + port)
+})
 ```
 
 The example directory contains a more detailed example.
 
 ## Test
 
-There are currently no tests.
-If you have ideas,
-please open an issue.
+```$ npm test```
 
 ## Future
 

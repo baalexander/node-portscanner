@@ -48,11 +48,29 @@ test('findPortInUse - taken port in range', t => {
         t.is(port, 3000);
     });
 });
+ 
+test('findPortInUse - taken port in range - ports as array', t => {
+    t.plan(2);
 
+    portScanner.findAPortInUse([2999, 3000, 3001], '127.0.0.1', (error, port) => {
+        t.is(error, null);
+        t.is(port, 2999);
+    });
+});
+ 
 test('findPortInUse - all ports in range free', t => {
     t.plan(2);
 
     portScanner.findAPortInUse(3001, 3010, '127.0.0.1', (error, port) => {
+        t.is(error, null);
+        t.false(port);
+    });
+});
+
+test('findPortInUse - all ports in range free - ports as array', t => {
+    t.plan(2);
+
+    portScanner.findAPortInUse([3001, 3005, 3008], '127.0.0.1', (error, port) => {
         t.is(error, null);
         t.false(port);
     });
@@ -66,7 +84,7 @@ test('findAPortNotInUse - start from free port', t => {
 
     portScanner.findAPortNotInUse(3001, 3010, '127.0.0.1', (error, port) => {
         t.is(error, null);
-        t.true(port >= 3001 && port <= 3010);
+        t.is(port, 3001);
     });
 });
 
@@ -75,7 +93,7 @@ test('findAPortNotInUse - start from taken port', t => {
 
     portScanner.findAPortNotInUse(3000, 3010, '127.0.0.1', (error, port) => {
         t.is(error, null);
-        t.true(port >= 3001 && port <= 3010);
+        t.is(port, 3001);
     });
 });
 
@@ -85,5 +103,14 @@ test('findAPortNotInUse - all ports in range taken', t => {
     portScanner.findAPortNotInUse(2999, 3000, '127.0.0.1', (error, port) => {
         t.is(error, null);
         t.false(port);
+    });
+});
+
+test('findAPortNotInUse - with array as parameter', t => {
+    t.plan(2);
+
+    portScanner.findAPortNotInUse([3000, 3002, 2999], '127.0.0.1', (error, port) => {
+        t.is(error, null);
+        t.is(port, 3002);
     });
 });
