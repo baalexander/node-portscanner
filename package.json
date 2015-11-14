@@ -1,6 +1,9 @@
 {
   "name": "portscanner",
   "description": "Asynchronous port scanner for Node.js",
+  "scripts": {
+    "test": "ava"
+  },
   "keywords": [
     "portscanner",
     "port",
@@ -29,7 +32,9 @@
   "dependencies": {
     "async": "0.1.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ava": "^0.4.2"
+  },
   "engines": {
     "node": ">=0.4",
     "npm": ">=1.0.0"
