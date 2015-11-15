@@ -31,7 +31,16 @@ test('checkPortStatus - taken', t => {
 test('checkPortStatus - free', t => {
     t.plan(2);
 
-    portScanner.checkPortStatus(3001, '127.0.0.1', (error, port) => {
+    portScanner.checkPortStatus(80, 'asd', (error, port) => {
+        t.is(error, null);
+        t.is(port, 'closed');
+    });
+});
+
+test('checkPortStatus - default host', t => {
+    t.plan(2);
+
+    portScanner.checkPortStatus(3001, (error, port) => {
         t.is(error, null);
         t.is(port, 'closed');
     });
@@ -66,11 +75,30 @@ test('findPortInUse - all ports in range free', t => {
         t.false(port);
     });
 });
+ 
+//If endPort is smaller than startPort - ignore provided endPort, use default
+//left as is for compatibility issues
+test('findPortInUse - wrong range', t => {
+    t.plan(2);
+    portScanner.findAPortInUse(2999, 30, '127.0.0.1', (error, port) => {
+        t.is(error, null);
+        t.is(port, 2999);
+    });
+});
 
 test('findPortInUse - all ports in range free - ports as array', t => {
     t.plan(2);
 
     portScanner.findAPortInUse([3001, 3005, 3008], '127.0.0.1', (error, port) => {
+        t.is(error, null);
+        t.false(port);
+    });
+});
+
+test('findPortInUse - all ports in range free - default host', t => {
+    t.plan(2);
+
+    portScanner.findAPortInUse(3001, 3010, (error, port) => {
         t.is(error, null);
         t.false(port);
     });
@@ -112,5 +140,32 @@ test('findAPortNotInUse - with array as parameter', t => {
     portScanner.findAPortNotInUse([3000, 3002, 2999], '127.0.0.1', (error, port) => {
         t.is(error, null);
         t.is(port, 3002);
+    });
+});
+
+test('findAPortNotInUse - with array as parameter - default host', t => {
+    t.plan(2);
+
+    portScanner.findAPortNotInUse([3000, 3002, 2999], (error, port) => {
+        t.is(error, null);
+        t.is(port, 3002);
+    });
+});
+
+test('findAPortNotInUse - default host', t => {
+    t.plan(2);
+
+    portScanner.findAPortNotInUse(3000, 4000, (error, port) => {
+        t.is(error, null);
+        t.is(port, 3001);
+    });
+});
+
+test('findAPortNotInUse - default host', t => {
+    t.plan(2);
+
+    portScanner.findAPortNotInUse(3000, 3002, (error, port) => {
+        t.is(error, null);
+        t.is(port, 3001);
     });
 });

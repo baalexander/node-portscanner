@@ -42,6 +42,16 @@ portscanner.findAPortInUse(3000, 3010, '127.0.0.1', function(error, port) {
 portscanner.findAPortInUse([3000, 3005, 3006], '127.0.0.1', function(error, port) {
   console.log('PORT IN USE AT: ' + port)
 })
+
+// And skip host param. Default is '127.0.0.1'
+portscanner.findAPortInUse([3000, 3005, 3006], function(error, port) {
+  console.log('PORT IN USE AT: ' + port)
+})
+
+// You can do this on every method
+portscanner.findAPortNotInUse(3000, 4000, function(error, port) {
+  console.log('PORT IN USE AT: ' + port)
+})
 ```
 
 The example directory contains a more detailed example.
