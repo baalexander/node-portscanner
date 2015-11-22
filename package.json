@@ -30,7 +30,7 @@
   },
   "main": "./lib/portscanner.js",
   "dependencies": {
-    "async": "0.1.15"
+    "async": "1.5.2"
   },
   "devDependencies": {
     "ava": "^0.4.2"
