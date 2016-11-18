@@ -50,9 +50,9 @@ The example directory contains a more detailed example.
 
 ## Test
 
-There are currently no tests.
-If you have ideas,
-please open an issue.
+```sh
+npm test
+```
 
 ## Future
 
