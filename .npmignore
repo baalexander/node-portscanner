@@ -1,5 +1,10 @@
 .DS_Store
+.vscode
+*.sublime-*
 .git*
 example/
-test/
-
+test.js
+yarn.lock
+.eslintrc
+.npmignore
+*.tgz
