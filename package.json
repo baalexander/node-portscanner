@@ -2,7 +2,8 @@
   "name": "portscanner",
   "description": "Asynchronous port scanner for Node.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "lint": "standard"
   },
   "keywords": [
     "portscanner",
@@ -33,7 +34,10 @@
     "async": "1.5.2"
   },
   "devDependencies": {
-    "ava": "^0.4.2"
+    "ava": "^0.4.2",
+    "eslint": "^3.10.2",
+    "eslint-config-standard": "^6.2.1",
+    "standard": "^8.5.0"
   },
   "engines": {
     "node": ">=0.4",
