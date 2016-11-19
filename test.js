@@ -213,3 +213,20 @@ test('findAPortInUse - promise (error)', t => {
   })
 })
 
+test('findAPortNotInUse - ports in reverse order, lowest one being in use', t => {
+  t.plan(2)
+
+  portScanner.findAPortNotInUse(3005, 3000, '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 3001)
+  })
+})
+
+test('findAPortNotInUse - ports in reverse order, highest one being in use', t => {
+  t.plan(2)
+
+  portScanner.findAPortNotInUse(3000, 2995, '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 2995)
+  })
+})
