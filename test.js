@@ -25,10 +25,28 @@ test('checkPortStatus - taken', t => {
   })
 })
 
+test('checkPortStatus - taken (without host)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus(3000, (error, port) => {
+    t.is(error, null)
+    t.is(port, 'open')
+  })
+})
+
 test('checkPortStatus - free', t => {
   t.plan(2)
 
   portScanner.checkPortStatus(3001, '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 'closed')
+  })
+})
+
+test('checkPortStatus - free (without host)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus(3001, (error, port) => {
     t.is(error, null)
     t.is(port, 'closed')
   })
@@ -45,10 +63,46 @@ test('findPortInUse - taken port in range', t => {
   })
 })
 
+test('findPortInUse - taken port in range (without host)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse(3000, 3010, (error, port) => {
+    t.is(error, null)
+    t.is(port, 3000)
+  })
+})
+
+test('findPortInUse - taken port in range (without endPort)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse(3000, '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 3000)
+  })
+})
+
+test('findPortInUse - taken port in range (without endPort and host) ', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse(3000, (error, port) => {
+    t.is(error, null)
+    t.is(port, 3000)
+  })
+})
+
 test('findPortInUse - taken port in range - ports as array', t => {
   t.plan(2)
 
   portScanner.findAPortInUse([2999, 3000, 3001], '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 2999)
+  })
+})
+
+test('findPortInUse - taken port in range - ports as array (without host)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse([2999, 3000, 3001], (error, port) => {
     t.is(error, null)
     t.is(port, 2999)
   })
@@ -67,6 +121,15 @@ test('findPortInUse - all ports in range free - ports as array', t => {
   t.plan(2)
 
   portScanner.findAPortInUse([3001, 3005, 3008], '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.false(port)
+  })
+})
+
+test('findPortInUse - all ports in range free - ports as array (without host)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse([3001, 3005, 3008], (error, port) => {
     t.is(error, null)
     t.false(port)
   })
