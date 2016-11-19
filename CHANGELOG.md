@@ -1,3 +1,9 @@
+# 2.1.0
+
+## New
+
+* [[`ed4682bd3c`](https://github.com/baalexander/node-portscanner/commit/ed4682bd3c)] - Accept ports as strings (laggingreflex)
+
 # 2.0.0
 
 ## Breaking Changes
