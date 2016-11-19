@@ -172,3 +172,44 @@ test('findAPortNotInUse - with array as parameter', t => {
     t.is(port, 3002)
   })
 })
+
+test('findAPortNotInUse - promise', t => {
+  t.plan(1)
+
+  portScanner.findAPortNotInUse(3000, 3010, '127.0.0.1').then(port => {
+    t.is(port, 3001)
+  })
+})
+
+test('findAPortNotInUse - promise (without host)', t => {
+  t.plan(1)
+
+  portScanner.findAPortNotInUse(3000, 3010).then(port => {
+    t.is(port, 3001)
+  })
+})
+
+test('findAPortNotInUse - promise (without host and endPort)', t => {
+  t.plan(1)
+
+  portScanner.findAPortNotInUse(3000).then(port => {
+    t.is(port, 3001)
+  })
+})
+
+test('findAPortInUse - promise', t => {
+  t.plan(1)
+
+  portScanner.findAPortInUse(3000, 3010, '127.0.0.1').then(port => {
+    t.is(port, 3000)
+  })
+})
+
+test('findAPortInUse - promise (error)', t => {
+  t.plan(1)
+
+  portScanner.findAPortInUse(3001, 3010, '127.0.0.1').catch(err => {
+    t.not(err, null)
+  })
+})
+
