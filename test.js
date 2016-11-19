@@ -230,3 +230,66 @@ test('findAPortNotInUse - ports in reverse order, highest one being in use', t =
     t.is(port, 2995)
   })
 })
+
+test('checkPortStatus - taken (port as a string)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus('3000', '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 'open')
+  })
+})
+
+test('checkPortStatus - taken (without host) (port as a string)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus('3000', (error, port) => {
+    t.is(error, null)
+    t.is(port, 'open')
+  })
+})
+
+test('checkPortStatus - free (port as a string)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus('3001', '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 'closed')
+  })
+})
+
+test('checkPortStatus - free (without host) (port as a string)', t => {
+  t.plan(2)
+
+  portScanner.checkPortStatus('3001', (error, port) => {
+    t.is(error, null)
+    t.is(port, 'closed')
+  })
+})
+
+test('findPortInUse - taken port in range (startPort as a string)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse('2990', 3010, '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 2999)
+  })
+})
+
+test('findPortInUse - taken port in range (endPort as a string)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse(2990, '3010', '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 2999)
+  })
+})
+
+test('findPortInUse - taken port in range (startPort and endPort as strings)', t => {
+  t.plan(2)
+
+  portScanner.findAPortInUse('3000', '3010', '127.0.0.1', (error, port) => {
+    t.is(error, null)
+    t.is(port, 3000)
+  })
+})
