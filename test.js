@@ -230,3 +230,21 @@ test('findAPortNotInUse - ports in reverse order, highest one being in use', t =
     t.is(port, 2995)
   })
 })
+
+test('findAPortNotInUse - google.com:79', t => {
+  t.plan(2)
+
+  portScanner.findAPortNotInUse(79, 81, 'google.com', (error, port) => {
+    t.is(error, null)
+    t.is(port, 79)
+  })
+})
+
+test('findAPortInUse - google.com:80', t => {
+  t.plan(2)
+
+  portScanner.findAPortNotInUse(79, 81, 'google.com', (error, port) => {
+    t.is(error, null)
+    t.is(port, 80)
+  })
+})
