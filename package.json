@@ -31,7 +31,7 @@
   },
   "main": "./lib/portscanner.js",
   "dependencies": {
-    "async": "1.5.2"
+    "bluebird": "^3.4.6"
   },
   "devDependencies": {
     "ava": "^0.4.2",
