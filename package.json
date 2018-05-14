@@ -13,7 +13,7 @@
     "checker",
     "status"
   ],
-  "version": "2.1.1",
+  "version": "2.2.0",
   "preferGlobal": false,
   "homepage": "https://github.com/baalexander/node-portscanner",
   "author": [
