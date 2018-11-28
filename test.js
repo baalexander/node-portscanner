@@ -11,209 +11,233 @@ reverseOrder()
 portsAsStrings()
 
 function initialize () {
-  test.before('Set #1 test server', t => {
+  test.before.cb('Set #1 test server', t => {
     const server = net.createServer()
-    server.listen(3000, '127.0.0.1', () => t.end())
+    server.listen(3000, '127.0.0.1', t.end)
   })
-  test.before('Set #2 test server', t => {
+  test.before.cb('Set #2 test server', t => {
     const server2 = net.createServer()
-    server2.listen(2999, '127.0.0.1', () => t.end())
+    server2.listen(2999, '127.0.0.1', t.end)
   })
 }
 
 function checkPortStatus () {
-  test('checkPortStatus - taken', t => {
+  test.cb('checkPortStatus - taken', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3000, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - taken (with host in options)', t => {
+  test.cb('checkPortStatus - taken (with host in options)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3000, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - taken (with host as string and options)', t => {
+  test.cb('checkPortStatus - taken (with host as string and options)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3000, '127.0.0.1', { timeout: 400 }, (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - taken (without host)', t => {
+  test.cb('checkPortStatus - taken (without host)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3000, (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - free', t => {
+  test.cb('checkPortStatus - free', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3001, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - free (with host in options argument)', t => {
+  test.cb('checkPortStatus - free (with host in options argument)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3001, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - free (with host as string and options)', t => {
+  test.cb('checkPortStatus - free (with host as string and options)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3001, '127.0.0.1', { timeout: 400 }, (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - free (without host)', t => {
+  test.cb('checkPortStatus - free (without host)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3001, (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - timeout', t => {
+  test.cb('checkPortStatus - timeout', t => {
     t.plan(2)
 
     portScanner.checkPortStatus(3001, { host: '127.0.0.1', timeout: 1 }, (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - error', t => {
+  test.cb('checkPortStatus - error', t => {
     t.plan(1)
 
     portScanner.checkPortStatus(3001, '127.0.0.0', (error, port) => {
       t.is(error.code, 'ENETUNREACH')
+      t.end()
     })
   })
 }
 
 function findPortInUse () {
-  test('findAPortInUse - taken port in range', t => {
+  test.cb('findAPortInUse - taken port in range', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, 3010, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range (without host)', t => {
+  test.cb('findAPortInUse - taken port in range (without host)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, 3010, (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range (with host in options)', t => {
+  test.cb('findAPortInUse - taken port in range (with host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, 3010, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range (without endPort)', t => {
+  test.cb('findAPortInUse - taken port in range (without endPort)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range (without endPort and host) ', t => {
+  test.cb('findAPortInUse - taken port in range (without endPort and host) ', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range (without endPort and host in options)', t => {
+  test.cb('findAPortInUse - taken port in range (without endPort and host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3000, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range - ports as array', t => {
+  test.cb('findAPortInUse - taken port in range - ports as array', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([2999, 3000, 3001], '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range - ports as array', t => {
+  test.cb('findAPortInUse - taken port in range - ports as array', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([2999, 3000, 3001], '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range - ports as array (without host)', t => {
+  test.cb('findAPortInUse - taken port in range - ports as array (without host)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([2999, 3000, 3001], (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findAPortInUse - taken port in range - ports as array (with host on options)', t => {
+  test.cb('findAPortInUse - taken port in range - ports as array (with host on options)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([2999, 3000, 3001], { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findAPortInUse - all ports in range free', t => {
+  test.cb('findAPortInUse - all ports in range free', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(3001, 3010, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
-  test('findAPortInUse - all ports in range free - ports as array', t => {
+  test.cb('findAPortInUse - all ports in range free - ports as array', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([3001, 3005, 3008], '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
-  test('findAPortInUse - all ports in range free - ports as array (with host in options)', t => {
+  test.cb('findAPortInUse - all ports in range free - ports as array (with host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([3001, 3005, 3008], { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
-  test('findAPortInUse - all ports in range free - ports as array (without host)', t => {
+  test.cb('findAPortInUse - all ports in range free - ports as array (without host)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse([3001, 3005, 3008], (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
   test('findAPortInUse - no promise in env', t => {
@@ -232,60 +256,67 @@ function findPortInUse () {
 }
 
 function findPortNotInUse () {
-  test('findAPortNotInUse - start from free port', t => {
+  test.cb('findAPortNotInUse - start from free port', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(3001, 3010, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - start from taken port', t => {
+  test.cb('findAPortNotInUse - start from taken port', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(3000, 3010, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - start from taken port (with host in options)', t => {
+  test.cb('findAPortNotInUse - start from taken port (with host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(3000, 3010, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - all ports in range taken', t => {
+  test.cb('findAPortNotInUse - all ports in range taken', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(2999, 3000, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
-  test('findAPortNotInUse - all ports in range taken (with host in options)', t => {
+  test.cb('findAPortNotInUse - all ports in range taken (with host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(2999, 3000, { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.false(port)
+      t.end()
     })
   })
-  test('findAPortNotInUse - with array as parameter', t => {
+  test.cb('findAPortNotInUse - with array as parameter', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse([3000, 3002, 2999], '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3002)
+      t.end()
     })
   })
-  test('findAPortNotInUse - with array as parameter (with host in options)', t => {
+  test.cb('findAPortNotInUse - with array as parameter (with host in options)', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse([3000, 3002, 2999], { host: '127.0.0.1' }, (error, port) => {
       t.is(error, null)
       t.is(port, 3002)
+      t.end()
     })
   })
   test('findAPortNotInUse - promise (error) (no promise in env)', t => {
@@ -304,138 +335,155 @@ function findPortNotInUse () {
 }
 
 function promise () {
-  test('findAPortNotInUse - promise', t => {
+  test.cb('findAPortNotInUse - promise', t => {
     t.plan(1)
 
     portScanner.findAPortNotInUse(3000, 3010, '127.0.0.1').then(port => {
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - promise (without host)', t => {
+  test.cb('findAPortNotInUse - promise (without host)', t => {
     t.plan(1)
 
     portScanner.findAPortNotInUse(3000, 3010).then(port => {
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - promise (with host in options)', t => {
+  test.cb('findAPortNotInUse - promise (with host in options)', t => {
     t.plan(1)
 
     portScanner.findAPortNotInUse(3000, 3010, { host: '127.0.0.1' }).then(port => {
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - promise (without host and endPort)', t => {
+  test.cb('findAPortNotInUse - promise (without host and endPort)', t => {
     t.plan(1)
 
     portScanner.findAPortNotInUse(3000).then(port => {
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortInUse - promise', t => {
+  test.cb('findAPortInUse - promise', t => {
     t.plan(1)
 
     portScanner.findAPortInUse(3000, 3010, '127.0.0.1').then(port => {
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - promise (with host in options)', t => {
+  test.cb('findAPortInUse - promise (with host in options)', t => {
     t.plan(1)
 
     portScanner.findAPortInUse(3000, 3010, { host: '127.0.0.1' }).then(port => {
       t.is(port, 3000)
+      t.end()
     })
   })
-  test('findAPortInUse - promise (error)', t => {
+  test.cb('findAPortInUse - promise (error)', t => {
     t.plan(1)
 
     portScanner.findAPortInUse(3001, 3010, '127.0.0.1').catch(err => {
       t.not(err, null)
+      t.end()
     })
   })
-  test('findAPortInUse - promise (error) (with host in options)', t => {
+  test.cb('findAPortInUse - promise (error) (with host in options)', t => {
     t.plan(1)
 
     portScanner.findAPortInUse(3001, 3010, { host: '127.0.0.1' }).catch(err => {
       t.not(err, null)
+      t.end()
     })
   })
 }
 
 function reverseOrder () {
-  test('findAPortNotInUse - ports in reverse order, lowest one being in use', t => {
+  test.cb('findAPortNotInUse - ports in reverse order, lowest one being in use', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(3005, 3000, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3001)
+      t.end()
     })
   })
-  test('findAPortNotInUse - ports in reverse order, highest one being in use', t => {
+  test.cb('findAPortNotInUse - ports in reverse order, highest one being in use', t => {
     t.plan(2)
 
     portScanner.findAPortNotInUse(3000, 2995, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 2995)
+      t.end()
     })
   })
 }
 
 function portsAsStrings () {
-  test('checkPortStatus - taken (port as a string)', t => {
+  test.cb('checkPortStatus - taken (port as a string)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus('3000', '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - taken (without host) (port as a string)', t => {
+  test.cb('checkPortStatus - taken (without host) (port as a string)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus('3000', (error, port) => {
       t.is(error, null)
       t.is(port, 'open')
+      t.end()
     })
   })
-  test('checkPortStatus - free (port as a string)', t => {
+  test.cb('checkPortStatus - free (port as a string)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus('3001', '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('checkPortStatus - free (without host) (port as a string)', t => {
+  test.cb('checkPortStatus - free (without host) (port as a string)', t => {
     t.plan(2)
 
     portScanner.checkPortStatus('3001', (error, port) => {
       t.is(error, null)
       t.is(port, 'closed')
+      t.end()
     })
   })
-  test('findPortInUse - taken port in range (startPort as a string)', t => {
+  test.cb('findPortInUse - taken port in range (startPort as a string)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse('2990', 3010, '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findPortInUse - taken port in range (endPort as a string)', t => {
+  test.cb('findPortInUse - taken port in range (endPort as a string)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse(2990, '3010', '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 2999)
+      t.end()
     })
   })
-  test('findPortInUse - taken port in range (startPort and endPort as strings)', t => {
+  test.cb('findPortInUse - taken port in range (startPort and endPort as strings)', t => {
     t.plan(2)
 
     portScanner.findAPortInUse('3000', '3010', '127.0.0.1', (error, port) => {
       t.is(error, null)
       t.is(port, 3000)
+      t.end()
     })
   })
 }

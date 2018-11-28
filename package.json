@@ -36,7 +36,7 @@
     "is-number-like": "^1.0.3"
   },
   "devDependencies": {
-    "ava": "^0.4.2",
+    "ava": "^0.25.0",
     "nyc": "^11.3.0",
     "eslint": "^3.10.2",
     "eslint-config-standard": "^6.2.1",
