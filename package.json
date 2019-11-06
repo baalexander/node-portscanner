@@ -38,7 +38,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "nyc": "^11.3.0",
-    "eslint": "^3.10.2",
+    "eslint": "^6.6.0",
     "eslint-config-standard": "^6.2.1",
     "standard": "^8.5.0"
   },
