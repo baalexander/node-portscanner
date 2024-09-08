@@ -1,4 +1,5 @@
 import net from 'net'
+import { execSync } from 'child_process'
 import test from 'ava'
 import portScanner from '.'
 
@@ -9,6 +10,7 @@ findPortNotInUse()
 promise()
 reverseOrder()
 portsAsStrings()
+findExcludedPorts()
 
 function initialize () {
   test.before.cb('Set #1 test server', t => {
@@ -485,5 +487,39 @@ function portsAsStrings () {
       t.is(port, 3000)
       t.end()
     })
+  })
+}
+
+function findExcludedPorts () {
+  if (process.platform !== 'win32') return
+  const output = execSync(
+    'netsh interface ipv4 show excludedportrange protocol=tcp'
+  ).toString()
+  const ports = output
+    .split('\n')
+    .filter((line) => line.match(/^ +[0-9]+ +[0-9]+/))
+    .map((line) => line.match(/ +([0-9]+) +([0-9]+)/).slice(1, 3))
+  console.log(`ports:`, ports)
+  const portsToCheck = []
+  for (const [startPort, endPort] of ports) {
+    for (
+      let i = Number(startPort);
+      i <= Math.min(Number(startPort) + 2, endPort);
+      i++
+    ) {
+      portsToCheck.push(i)
+    }
+  }
+  if (!portsToCheck.length) return
+  console.log(`portsToCheck:`, portsToCheck)
+  test.cb('Test reserved ports on Windows', (t) => {
+    t.plan(portsToCheck.length)
+    for (const port of portsToCheck) {
+      console.log(`testing:`, port)
+      portScanner.checkPortStatus(port, function (error, status) {
+        console.log(port, { error, status })
+        t.is(status, 'reserved')
+      })
+    }
   })
 }
